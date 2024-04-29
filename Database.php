@@ -21,23 +21,23 @@
                 if ($this->getFrom('posts', $id) !== null)
                 {
                     // update
-                    $query = "UPDATE `posts` SET body=$body, user_id=$user_id, title=$title WHERE id=$id";
+                    $query = "UPDATE posts SET body='$body', user_id=$user_id, title='$title' WHERE id=$id";
                 }
                 else 
                 {
                     // insert
                     
-                    $query = "INSERT INTO `posts` VALUES ($id, $user_id, '$title', '$body')";
+                    $query = "INSERT INTO posts VALUES ($id, $user_id, '$title', '$body')";
                 }
                 $result = $this->query($query);
                 if (empty($result))
                 {   
-                    print "post ($id) is failed to load";
+                    print "post ($id) is failed to load<br>";
                 }
                 else
                     $loaded++;
             }
-            print "Done!";
+            print "Done!<br>";
             return $loaded;
         }
         public function loadComments(array $comments)
@@ -53,23 +53,23 @@
                 if ($this->getFrom('comments', $id) !== null)
                 {
                     // update
-                    $query = "UPDATE `comments` SET post_id=$post_id, body=$body, email=$email, cname=$name WHERE id=$id";
+                    $query = "UPDATE comments SET post_id=$post_id, body='$body', email='$email', cname='$name' WHERE id=$id";
                 }
                 else 
                 {
                     // insert
-                    $query = "INSERT INTO `comments` VALUES ($id, $post_id, '$email', '$name', '$body')";
+                    $query = "INSERT INTO comments VALUES ($id, $post_id, '$email', '$name', '$body')";
                 }
                 $result = $this->query($query);
                 if (empty($result))
                 {   
-                    print "comment ($id) ($email) is failed to load\n";
+                    print "comment ($id) ($email) is failed to load<br>";
                 } 
                 else 
                     $loaded++;
                 
             }
-            print "Done!\n";
+            print "Done!<br>";
             return $loaded;
         }
         

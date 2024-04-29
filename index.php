@@ -8,25 +8,18 @@
 </head>
 <body>
     <form enctype="multipart/form-data" action="load_json_to_db.php" method="POST">
-        <select name="load_var" id="load_var">
-            <option value="posts">Посты</option>
-            <option value="comments">Комментарии</option>
-        </select>
+        <label value="posts">Посты</label>
         <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
-        <input type="file" name="file" accept=".json">
+        <input type="file" name="file[]" accept=".json">
+        <br>
+        <label value="comments">Комментарии</label>
+        <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
+        <input type="file" name="file[]" accept=".json">
         <br>
         <button type="submit">
-            Загрузить Посты
+            Загрузить
         </button>
-        <?php 
-            if (!empty($_GET['upload_state']))
-            {
-                if ($_GET['upload_state'] === "0")
-                    echo "<a style='color:red;'> Файл не загружен </a>";
-                else if ($_GET['upload_state'] === "1")
-                    echo "<a style='color:green;'> Файл загружен! </a>";
-            }
-        ?>
+       
         <br>
         <a href="pages.php">статьи</a>
     </form>

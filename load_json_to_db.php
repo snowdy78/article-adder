@@ -6,38 +6,42 @@
         return json_decode($file_content, true);
     }
     $upload_dir = 'upload/';
-    function upload_file($post_file_name, $upload_file_name)
+    function load_file($post_file_name, $upload_file_name, $id = 0)
     {
         global $upload_dir; 
         $upload_file = $upload_dir.basename($upload_file_name);
-        print "<pre>";
-        if ($_FILES[$post_file_name]["error"] == UPLOAD_ERR_OK)
+        
+        if ($_FILES[$post_file_name]["error"][$id] == UPLOAD_ERR_OK)
         {
-            move_uploaded_file($_FILES[$post_file_name]['tmp_name'], $upload_file);
-            print_r($_FILES[$post_file_name]);
+            move_uploaded_file($_FILES[$post_file_name]['tmp_name'][$id], $upload_file);
             return true;
         }
-        print "</pre>";
         return false;
     }
-    $load_var = $_POST['load_var'];
-    if (!empty($load_var))
+    if (load_file('file', "posts.json", 0))
     {
-        if (upload_file('file', "$load_var.json"))
-        {
-            $json = parse_jsonfile("upload/$load_var.json");
-            $db = Database::load();
-            if ($load_var === "posts")
-            {
-                $db->loadPosts($json);
-            }
-            else if ($load_var === "comments")
-            {
-                $db->loadComments($json);
-            }
-            header("location:/index.php?upload_state=1");
-            exit;
-        }
-        header("location:/index.php?upload_state=0");
+        $posts_json = parse_jsonfile("upload/posts.json");
+        $db = Database::load();
+        $db->loadPosts($posts_json);
+        echo "Постов загружено - ";
+        echo sizeof($posts_json)."<br>";
     }
+    else 
+    {
+        echo "Посты не загружены<br>";
+        exit;
+    }
+    if (load_file("file", "comments.json", 1))
+    {
+        $comments_json = parse_jsonfile("upload/comments.json");
+        $db = Database::load();
+        $db->loadComments($comments_json);
+        echo "комментариев загружено - ";
+        echo sizeof($comments_json)."<br>";
+    }
+    else 
+    {
+        echo "Комментарии не загружены<br>";
+    }
+
 ?>
