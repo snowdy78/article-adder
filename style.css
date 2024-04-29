@@ -1,0 +1,40 @@
+* {
+	margin:0;
+	padding:0
+}
+.posts {
+	width: 1000px;
+	margin-left:10%;
+}
+.posts > .post {
+	padding:1em;
+
+	background-color: rgb(224 255 181);;
+}
+.post > p {
+	padding:1em;
+}
+
+.post > .comments {
+	background-color: rgba()
+}
+
+.comments > .comment {
+	padding:1em;
+}
+
+.author-mention {
+	text-align: right;
+	padding-right: 5%;
+}
+.author-mention > a {
+	color:black;
+	text-decoration: none;
+}
+.posts > hr {
+	border: 1px solid black;
+}
+.text-selection {
+	display: inline;
+	background-color:yellow;
+}
